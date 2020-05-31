@@ -1,0 +1,37 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.example.chapter_3"
+    tools:ignore="ExtraText">
+
+<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <application
+        android:allowBackup="true">
+
+        <activity
+            android:name=".ThirdChapterActivity"
+            android:configChanges="orientation|screenSize"
+            android:label="@string/app_name"
+            android:launchMode="standard" />
+
+        <activity
+        android:name=".TestActivity"
+        android:configChanges="orientation|screenSize"
+        android:label="@string/app_name"
+        android:launchMode="standard" />
+
+        <activity
+            android:name=".DemoActivity_1"
+            android:configChanges="orientation|screenSize"
+            android:label="@string/app_name"
+            android:launchMode="standard" />
+
+        <activity
+            android:name=".DemoActivity_2"
+            android:configChanges="orientation|screenSize"
+            android:label="@string/app_name"
+            android:launchMode="standard" />
+    </application>>
+
+</manifest>

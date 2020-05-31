@@ -10,10 +10,21 @@
         android:id="@+id/btn_second"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Second Chapter"
+        android:text="第二章"
         android:layout_marginTop="20dp"
         android:onClick="goSecond"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+    <Button
+        android:id="@+id/btn_third"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="第三章"
+        android:layout_marginTop="20dp"
+        android:onClick="goThird"
+        app:layout_constraintTop_toBottomOf="@id/btn_second"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"/>
 
