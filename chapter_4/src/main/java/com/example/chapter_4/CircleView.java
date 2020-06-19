@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.ViewGroup;
 
 /**
  * BasicCircleView的改良版,支持padding和wrap_content
@@ -44,14 +45,25 @@ public class CircleView extends View {
         int widthSpecSize = MeasureSpec.getSize(widthMeasureSpec);
         int heightSpecMode = MeasureSpec.getMode(heightMeasureSpec);
         int heightSpecSize = MeasureSpec.getSize(heightMeasureSpec);
-        //支持wrap_content的关键,当布局的宽或高为wrap_content,即AT_MOST时
+
+        //支持wrap_content的关键,当布局的宽或高为wrap_content或match_parent,即AT_MOST时
         //在onMeasure()时任意指定一个固定的宽或高的值
-        if (widthSpecMode == MeasureSpec.AT_MOST
-                && heightSpecMode == MeasureSpec.AT_MOST) {
+//        if (widthSpecMode == MeasureSpec.AT_MOST
+//                && heightSpecMode == MeasureSpec.AT_MOST) {
+//            setMeasuredDimension(200, 200);
+//        } else if (widthSpecMode == MeasureSpec.AT_MOST) {
+//            setMeasuredDimension(200, heightSpecSize);
+//        } else if (heightSpecMode == MeasureSpec.AT_MOST) {
+//            setMeasuredDimension(widthSpecSize, 200);
+//        }
+
+        // 当布局参数设置为wrap_content时，设置默认值
+        if (getLayoutParams().width == ViewGroup.LayoutParams.WRAP_CONTENT && getLayoutParams().height == ViewGroup.LayoutParams.WRAP_CONTENT) {
             setMeasuredDimension(200, 200);
-        } else if (widthSpecMode == MeasureSpec.AT_MOST) {
+            // 宽 / 高任意一个布局参数为= wrap_content时，都设置默认值
+        } else if (getLayoutParams().width == ViewGroup.LayoutParams.WRAP_CONTENT) {
             setMeasuredDimension(200, heightSpecSize);
-        } else if (heightSpecMode == MeasureSpec.AT_MOST) {
+        } else if (getLayoutParams().height == ViewGroup.LayoutParams.WRAP_CONTENT) {
             setMeasuredDimension(widthSpecSize, 200);
         }
     }

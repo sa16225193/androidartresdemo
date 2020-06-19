@@ -1,0 +1,28 @@
+## 分类
+1. 继承View重写onDraw方法
+这种方法主要用于实现一些不规则的效果，即这种效果不方便通过布局的组合方式来达到，往往需要静态或者动态地显示一些不规则的图形。采用这种方式需要自己支持wrap_content，并且padding也需要自己处理。
+
+2. 继承ViewGroup派生特殊的Layout
+这种方法主要用于实现自定义的布局，即除了LinearLayout、RelativeLayout、FrameLayout这几种系统的布局外，我们重新定义了一种新布局，当某种效果看起来很像几种View组合在一起的时候，可以采用这种方法来实现。采用这种方式稍微复杂一些，需要合适地处理ViewGroup的测量、布局这两个过程，并同时处理子元素的测量和布局过程。
+
+3. 继承特定的View（比如TextView）
+这种方法比较常见，一般是用于扩展某种已有的View的功能，比如TextView，这种比较容易实现，不需要自己支持wrap_content和padding等。
+
+4. 继承特定的ViewGroup(比如LinearLayout)
+这种方法也比较常见，当某种效果看起来很像几种View组合在一起的时候，可以采用这种方法来实现。采用这种方法不需要自己处理ViewGroup的测量和布局过程。
+
+## 注意点
+1. 让View支持wrap_content   
+直接继承View或者ViewGroup的控件，如果不在onMeasure中对wrap_content做特殊处理，那么当外界在布局中使用wrap_content时就无法达到预期的效果。
+
+2. 如果有必要，让你的View支持padding  
+直接继承View的控件，如果不在draw方法中处理padding,那么padding属性是无法起作用的。另外，直接继承自ViewGroup的控件需要在onMeasure和onLayout中考虑padding和子元素的margin影响，不然会导致无效。  
+
+3. 尽量不要在View中使用Handler
+View内部本身就提供了post系列的方法，完全可以替代Handler的作用。
+
+4. View中如果有线程或者动画，需要及时停止，参考View#onDetachedFromWindow
+当包含此View的Activity退出或者当前View被remove时，会调用view的onDetachedFromWindow方法，对应的方法是onAttachedToWindow。避免内存泄露。
+
+5. View带有滑动嵌套情形时，需要处理好滑动冲突
+如果有滑动冲突，那么要合适地处理滑动冲突，否则会严重影响View 的效果。
