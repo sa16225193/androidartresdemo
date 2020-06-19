@@ -13,6 +13,7 @@ import android.view.View;
 
 import com.example.chapter_2.SecondChapterActivity;
 import com.example.chapter_3.ThirdChapterActivity;
+import com.example.chapter_4.ForthChapterActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -43,6 +44,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void goThird(View v) {
         Intent intent = new Intent(this, ThirdChapterActivity.class);
+        startActivity(intent);
+    }
+
+    public void goForth(View v) {
+        Intent intent = new Intent(this, ForthChapterActivity.class);
         startActivity(intent);
     }
 }
