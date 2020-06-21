@@ -1,0 +1,38 @@
+PendingIntent表示一种即将发生的Intent(意图)。PendingIntent和Intent的区别在于,PendingIntent是在将来的某个不确定的时刻发生，而Intent是立刻发生。  
+PendingIntent典型的使用场景是给RemoteViews添加单击事件，因为RemoteViews运行在远程进程中，因此RemoteViews不同于普通的View，所以无法直接向View那样通过setOnClickListener方法来设置单击事件。必须使用PendingIntent，通过PendingIntent的send和cancel方法来发送和取消特定的PendingIntent。
+
+PendingIntent支持三种待定意图：启动Activity、启动Service和发送广播，对应方法如下：
+static PendingIntent|getActivity(Context context, int requestCode, Intent intent, int flags)获得一个PendingIntent,该待定意图发生时，效果相当于Context.startActivity(Intent)
+--|--
+static PendingIntent|getService(Context context, int requestCode, Intent intent, int flags)获得一个PendingIntent,该待定意图发生时，效果相当于Context.startService(Intent)
+static PendingIntent|getBroadcast(Context context, int requestCode, Intent intent, int flags)获得一个PendingIntent,该待定意图发生时，效果相当于Context.sendBroadcast(Intent)
+
+getActivity、getService和getBroadcast这三个方法的参数意义都是相同的，第一个和第三个参数比较好理解，这里主要说第二个参数requestCode和第四个参数flags,其中requestCode标识PendingIntent发送方的请求码，多数情况下设为0即可，另外requestCode会影响到flags的效果。  
+flags常见的类型有：FLAG_ONE_SHOT、FLAG_NO_CREATE、FLAG_CANCEL_CURRENT和FLAG_UPDATE_CURRENTT。
+
+#### PendingIntent的匹配规则
+如果两个PendingIntent它们内部的Intent相同并且requestCode也相同，那么这两个PendingIntent就是相同的。  
+requestCode相同好理解，那么什么情况下Intent相同呢？  
+Intent的匹配规则是：如果两个Intent的ComponentName（要启动的组件，比如XxxActivity）和intent-filter都相同，那么这两个Intent就是相同的。需要注意的是Extras不参与Intent的匹配过程。
+
+#### flag参数含义
+FLAG_ONE_SHOT
+当前描述的PendingIntent只能被使用一次，然后它就会被自动cancel，如果后续还有相同的PendingIntent，那么它们的send方法就会调用失败。对于通知栏消息来说，如果采用此标记位，那么同类的通知只能使用一次，后续的通知单击后将无法打开。
+
+FLAG_NO_CREATE
+当前描述的PendingIntent不会主动创建，如果当前PendingIntent之前不存在，那么getActivity、getService和getBroadcast方法会直接返回null,即获取PendingIntent失败。这个标记位很少见，无法单独使用，因此日常开发中使用意义不大。
+
+FLAG_CANCEL_CURRENT
+当前描述的PendingIntent如果已经存在，那么它们都会被cancel，然后系统会创建一个新的PendingIntent。对于通知栏消息来说，那些被cancel的消息单击后将无法打开。
+
+FLAG_UPDATE_CURRENT
+当前描述的PendingIntent如果已经存在，那么它们都会被更新，即它们的Intent中的Extras会被替换成最新的。
+
+以上四个标记位需要结合NotificationManager.notify(id, notification)讨论。  
+如果id相同，不管PendingIntent是否匹配，后面通知会直接替换前面的通知。  
+如果id不同，则看PendingIntent是否匹配。  
+如果不匹配，则无论哪种flags，这些通知互不干扰。  
+如果匹配，
+- 当flags为FLAG_ONE_SHOT时，那么后续通知中的PendingIntent会和第一条通知保持一致，包括Extras，单击任何一条通知后，剩下的通知均无法再打开。当所有的通知都被清除后，会再次重复这个过程；  
+- 当flags为FLAG_CANCEL_CURRENT标记位，那么只有最新的通知可以打开，之前弹出的所有通知均无法打开；
+- 当flags为FLAG_UPDATE_CURRENT时，那么之前弹出的通知中的PendingIntent会被更新，最终它们和最新的一条通知保持一致，包括其中的Extras。

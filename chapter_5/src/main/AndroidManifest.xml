@@ -1,0 +1,31 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.chapter_5">
+
+    <application android:allowBackup="true">
+
+        <activity
+            android:name=".FifthChapterActivity"
+            android:configChanges="orientation|screenSize"
+            android:process=":remote"/>
+
+        <activity
+            android:name=".DemoActivity_1"
+            android:configChanges="orientation|screenSize" />
+
+        <activity
+            android:name=".DemoActivity_2"
+            android:configChanges="orientation|screenSize" />
+
+        <receiver android:name=".MyAppWidgetProvider">
+            <intent-filter>
+                <action android:name="com.ryg.chapter_5.action.CLICK" />
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/appwidget_provider_info"></meta-data>
+        </receiver>
+    </application>
+
+</manifest>

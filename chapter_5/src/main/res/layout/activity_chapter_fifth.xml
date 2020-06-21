@@ -1,0 +1,56 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:orientation="vertical" >
+
+    <Button
+        android:id="@+id/send_def_notification"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="发生系统默认样式通知"
+        android:layout_marginTop="20dp"
+        android:onClick="sendDefNotify"
+        android:layout_gravity="center_horizontal"/>
+
+    <Button
+        android:id="@+id/send_custom_notification"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="发送自定义布局通知"
+        android:textSize="16sp"
+        android:onClick="sendCustomNotify"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"/>
+
+    <Button
+        android:id="@+id/delete_notification_channel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="删除通知渠道default_channel"
+        android:textSize="16sp"
+        android:textAllCaps="false"
+        android:onClick="deleteChannel"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"/>
+
+    <Button
+        android:id="@+id/app_widget_provider"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="远程进程更新View"
+        android:textSize="16sp"
+        android:textAllCaps="false"
+        android:onClick="appWidgetProvider"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"/>
+
+    <LinearLayout
+        android:id="@+id/remote_views_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+    </LinearLayout>
+
+</LinearLayout>
