@@ -16,6 +16,7 @@ import com.example.chapter_3.ThirdChapterActivity;
 import com.example.chapter_4.ForthChapterActivity;
 import com.example.chapter_5.FifthChapterActivity;
 import com.example.chapter_6.SixChapterActivity;
+import com.example.chapter_7.SevenChapterActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -61,6 +62,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void goSix(View v) {
         Intent intent = new Intent(this, SixChapterActivity.class);
+        startActivity(intent);
+    }
+
+    public void goSeven(View v) {
+        Intent intent = new Intent(this, SevenChapterActivity.class);
         startActivity(intent);
     }
 }
