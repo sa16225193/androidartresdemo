@@ -24,6 +24,18 @@
         android:text="Rotate3dAnimation" />
 
     <Button
+        android:id="@+id/button5"
+        style="@style/AppTheme.Button.Green"
+        android:onClick="onButtonClick"
+        android:text="ViewWrapper实现Button变窄动画" />
+
+    <Button
+        android:id="@+id/button6"
+        style="@style/AppTheme.Button.Green"
+        android:onClick="onButtonClick"
+        android:text="ValueAnimator实现Button变窄动画" />
+
+    <Button
         android:id="@+id/button3"
         style="@style/AppTheme.Button.Green"
         android:onClick="onButtonClick"

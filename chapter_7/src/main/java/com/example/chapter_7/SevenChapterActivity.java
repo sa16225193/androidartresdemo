@@ -1,6 +1,7 @@
 package com.example.chapter_7;
 
 import android.animation.IntEvaluator;
+import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.app.Notification;
@@ -34,6 +35,7 @@ import android.widget.Toast;
 import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
 
+import java.lang.annotation.Target;
 import java.util.ArrayList;
 
 public class SevenChapterActivity extends Activity {
@@ -68,7 +70,7 @@ public class SevenChapterActivity extends Activity {
             controller.setDelay(0.5f);
             controller.setOrder(LayoutAnimationController.ORDER_NORMAL);
             listView.setLayoutAnimation(controller);
-        } else if ((v.getId() == R.id.button4)) {
+        } else if (v.getId() == R.id.button4) {
             final Button button = findViewById(R.id.button4);
             button.post(new Runnable() {
                 @Override
@@ -76,6 +78,42 @@ public class SevenChapterActivity extends Activity {
                     Rotate3dAnimation rotate3dAnimation = new Rotate3dAnimation(0, 360, button.getX() + button.getWidth() / 2, button.getY() + button.getHeight() / 2,100, false);
                     rotate3dAnimation.setDuration(1000);
                     button.startAnimation(rotate3dAnimation);
+                }
+            });
+        } else if (v.getId() == R.id.button5) {
+            final Button button = findViewById(R.id.button5);
+            button.post(new Runnable() {
+                @Override
+                public void run() {
+                    ViewWrapper wrapper = new ViewWrapper(button);
+                    ObjectAnimator.ofInt(wrapper, "width", button.getWidth() / 2).setDuration(5000).start();
+                }
+            });
+        } else if (v.getId() == R.id.button6) {
+            final Button button = findViewById(R.id.button6);
+            button.post(new Runnable() {
+                @Override
+                public void run() {
+                    ValueAnimator valueAnimator = ValueAnimator.ofInt(100, 1);
+                    final int width = button.getWidth();
+                    valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+
+                        //持有一个IntEvaluator对象，方便下面估值的时候使用
+                        private IntEvaluator intEvaluator = new IntEvaluator();
+
+                        @Override
+                        public void onAnimationUpdate(ValueAnimator animation) {
+                            //获得当前动画的进度值，整型，1~100之间
+                            int currentValue = (int) animation.getAnimatedValue();
+                            float fraction = animation.getAnimatedFraction();
+                            Log.d(TAG, "current value = " + currentValue + ", fraction = " + fraction);
+
+                            //获得当前进度占整个动画过程的比例,浮点型，0~1之间
+                            button.getLayoutParams().width = intEvaluator.evaluate(fraction, width, width / 2);
+                            button.requestLayout();
+                        }
+                    });
+                    valueAnimator.setDuration(5000).start();
                 }
             });
         }
