@@ -380,6 +380,60 @@ public static interface AnimatorUpdateListener {
 }
 ```
 
+### 对任意属性做动画
+比如给Button做宽度动画，由于Button的width没有对应的get和set方法，故无法直接通过ObjectAnimator做宽度动画。  
+解决办法：
+1. 给Button的width属性增加set和get方法（源码无法更改，放弃）
+2. 用一个类来包装原始对象，间接为其提供get和set方法
+```
+private void performAnimate() {
+    ViewWrapper wrapper = new ViewWrapper(mButton);
+    ObjectAnimator.ofInt(wrapper, "width", 500).setDuration(5000).start();
+}
+
+private static class ViewWrapper {
+    private View target;
+    
+    public void (View target) {
+        this.target = target;
+    }
+    
+    public int getWidth() {
+        return target.getLayoutParams().width;
+    }
+    
+    public void setWidth(int width) {
+        target.getLayoutParams().width = width;
+        target.requestLayout();
+    }
+}
+```
+3. 采用ValueAnimator，监听动画过程，自己实现属性的改变
+```
+performAnimate(mButton, mButton.getWidth(), 500);
+
+private void performAnimate(final View target, final int start, final end) {
+    ValueAnimator valueAnimator = ValueAnimator.ofInt(1, 100);
+    valueAnimator.addUpdateListener(new AnimatorUpdateListener() {
+        //持有一个IntEvaluator对象，方便下面估值的时候使用
+        private IntEvaluator intEvaluator = new IntEvaluator();
+
+        @Override
+        public void onAnimationUpdate(ValueAnimator animation) {
+            //获得当前动画的进度值，整型，1~100之间
+            int currentValue = (int) animation.getAnimatedValue();
+            float fraction = animation.getAnimatedFraction();
+            Log.d(TAG, "current value = " + currentValue + ", fraction = " + fraction);
+
+            //获得当前进度占整个动画过程的比例,浮点型，0~1之间
+            button.getLayoutParams().width = intEvaluator.evaluate(fraction, start, end);
+            target.requestLayout();
+        }
+    });
+    valueAnimator.setDuration(5000).start();
+}
+```
+
 ## 使用动画的注意事项
 1. OOM问题
 主要是帧动画，尤其是图片数量较多且图片较大时
