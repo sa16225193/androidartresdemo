@@ -68,6 +68,16 @@ public class SevenChapterActivity extends Activity {
             controller.setDelay(0.5f);
             controller.setOrder(LayoutAnimationController.ORDER_NORMAL);
             listView.setLayoutAnimation(controller);
+        } else if ((v.getId() == R.id.button4)) {
+            final Button button = findViewById(R.id.button4);
+            button.post(new Runnable() {
+                @Override
+                public void run() {
+                    Rotate3dAnimation rotate3dAnimation = new Rotate3dAnimation(0, 360, button.getX() + button.getWidth() / 2, button.getY() + button.getHeight() / 2,100, false);
+                    rotate3dAnimation.setDuration(1000);
+                    button.startAnimation(rotate3dAnimation);
+                }
+            });
         }
     }
 
