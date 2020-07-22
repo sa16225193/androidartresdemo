@@ -83,4 +83,15 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"/>
 
+    <Button
+        android:id="@+id/btn_eleven"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="第十一章"
+        android:layout_marginTop="20dp"
+        android:onClick="goEleven"
+        app:layout_constraintTop_toBottomOf="@id/btn_seven"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
