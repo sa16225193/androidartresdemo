@@ -4,7 +4,9 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.PriorityBlockingQueue;
 import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 import android.app.Activity;
@@ -12,21 +14,88 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.text.TextUtils;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 
 public class ElevenChapterActivity extends Activity {
     private static final String TAG = "ElevenChapterActivity";
+    private TextView mTextView;
+    private PausableThreadPoolExecutor mPausableThreadPool;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chapter_eleven);
+        mTextView = findViewById(R.id.text);
         scheduleThreads();
+    }
+
+    public void command(View v) {
+        if (v instanceof Button) {
+            if (TextUtils.equals(((Button) v).getText(), "开始")) {
+                ((Button) v).setText("暂停");
+                mPausableThreadPool.resume();
+            } else {
+                ((Button) v).setText("开始");
+                mPausableThreadPool.pause();
+            }
+        }
     }
 
     private void scheduleThreads() {
         runAsyncTask();
         runIntentService();
         runThreadPool();
+        runPriorityThreadPool();
+        runPausableThreadPool();
+    }
+
+    private void runPausableThreadPool() {
+        mPausableThreadPool = new PausableThreadPoolExecutor(1, 1, 0L, TimeUnit.SECONDS, new PriorityBlockingQueue<Runnable>());
+        for (int i = 1; i <= 100; i++) {
+            final int priority = i;
+            mPausableThreadPool.execute(new PriorityRunnable(priority) {
+                @Override
+                public void doSth() {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            mTextView.setText(priority + "");
+                        }
+                    });
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+        }
+    }
+
+    /**
+     * 使用优先级队列的线程池
+     */
+    private void runPriorityThreadPool() {
+        ExecutorService priorityThreadPool = new ThreadPoolExecutor(3, 3, 0L, TimeUnit.SECONDS, new PriorityBlockingQueue<Runnable>());
+        for (int i = 1; i <= 10; i++) {
+            final int priority = i;
+            priorityThreadPool.execute(new PriorityRunnable(priority) {
+                @Override
+                public void doSth() {
+                    String threadName = Thread.currentThread().getName();
+                    Log.v(TAG, "线程：" + threadName + ",正在执行优先级为：" + priority + "的任务");
+                    try {
+                        Thread.sleep(2000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+        }
     }
 
     private void runThreadPool() {
