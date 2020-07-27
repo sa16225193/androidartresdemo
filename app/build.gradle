@@ -10,6 +10,9 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        // enable multidex support
+        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -19,8 +22,26 @@ android {
     }
 }
 
+afterEvaluate {
+    println "afterEvaluate"
+    tasks.matching {
+        it.name.startsWith('dex')
+    }.each { dx ->
+        def listFile = project.rootDir.absolutePath + '/app/maindexlist.txt'
+        println "root dir:" + project.rootDir.absolutePath
+        println "dex task found: " + dx.name
+        if (dx.additionalParameters == null) {
+            dx.additionalParameters = []
+        }
+        dx.additionalParameters += '--multi-dex'
+        dx.additionalParameters += '--main-dex-list=' + listFile
+        dx.additionalParameters += '--minimal-main-dex'
+    }
+}
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'com.android.support:multidex:2.0.1'
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     testImplementation 'junit:junit:4.12'
@@ -35,4 +56,5 @@ dependencies {
     implementation project(path: ':chapter_8')
     implementation project(path: ':chapter_11')
     implementation project(path: ':chapter_12')
+    implementation project(path: ':chapter_13')
 }

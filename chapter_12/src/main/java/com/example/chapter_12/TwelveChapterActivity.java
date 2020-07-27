@@ -20,7 +20,7 @@ import android.widget.GridView;
 import android.widget.ImageView;
 
 public class TwelveChapterActivity extends Activity implements OnScrollListener {
-    private static final String TAG = "MainActivity";
+    private static final String TAG = "TwelveChapterActivity";
 
     private List<String> mUrList = new ArrayList<String>();
     ImageLoader mImageLoader;

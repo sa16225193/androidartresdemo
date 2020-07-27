@@ -13,6 +13,7 @@ import android.view.View;
 
 import com.example.chapter_11.ElevenChapterActivity;
 import com.example.chapter_12.TwelveChapterActivity;
+import com.example.chapter_13.ThirteenChapterActivity;
 import com.example.chapter_2.SecondChapterActivity;
 import com.example.chapter_3.ThirdChapterActivity;
 import com.example.chapter_4.ForthChapterActivity;
@@ -85,6 +86,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void goTwelve(View v) {
         Intent intent = new Intent(this, TwelveChapterActivity.class);
+        startActivity(intent);
+    }
+
+    public void goThirteen(View v) {
+        Intent intent = new Intent(this, ThirteenChapterActivity.class);
         startActivity(intent);
     }
 }
