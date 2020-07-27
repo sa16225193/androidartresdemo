@@ -1,119 +1,135 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent">
 
-    <Button
-        android:id="@+id/btn_second"
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="第二章——IPC机制"
-        android:layout_marginTop="20dp"
-        android:onClick="goSecond"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"/>
+        tools:context=".MainActivity">
 
-    <Button
-        android:id="@+id/btn_third"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="第三章——View的事件体系"
-        android:layout_marginTop="20dp"
-        android:onClick="goThird"
-        app:layout_constraintTop_toBottomOf="@id/btn_second"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"/>
+        <Button
+            android:id="@+id/btn_second"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:onClick="goSecond"
+            android:text="第二章——IPC机制"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/btn_forth"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="第四章——View的工作原理"
-        android:layout_marginTop="20dp"
-        android:onClick="goForth"
-        app:layout_constraintTop_toBottomOf="@id/btn_third"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"/>
+        <Button
+            android:id="@+id/btn_third"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:onClick="goThird"
+            android:text="第三章——View的事件体系"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_second" />
 
-    <Button
-        android:id="@+id/btn_fifth"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="第五章——理解RemoteViews"
-        android:layout_marginTop="20dp"
-        android:onClick="goFifth"
-        app:layout_constraintTop_toBottomOf="@id/btn_forth"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"/>
+        <Button
+            android:id="@+id/btn_forth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:onClick="goForth"
+            android:text="第四章——View的工作原理"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_third" />
 
-    <Button
-        android:id="@+id/btn_six"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="第六章——Android的Drawable"
-        android:layout_marginTop="20dp"
-        android:onClick="goSix"
-        app:layout_constraintTop_toBottomOf="@id/btn_fifth"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"/>
+        <Button
+            android:id="@+id/btn_fifth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:onClick="goFifth"
+            android:text="第五章——理解RemoteViews"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_forth" />
 
-    <Button
-        android:id="@+id/btn_seven"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="第七章——Android动画深入分析"
-        android:layout_marginTop="20dp"
-        android:onClick="goSeven"
-        app:layout_constraintTop_toBottomOf="@id/btn_six"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"/>
+        <Button
+            android:id="@+id/btn_six"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:onClick="goSix"
+            android:text="第六章——Android的Drawable"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_fifth" />
 
-    <Button
-        android:id="@+id/btn_eight"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="第八章——理解Window和WindowManager"
-        android:layout_marginTop="20dp"
-        android:onClick="goEight"
-        app:layout_constraintTop_toBottomOf="@id/btn_seven"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"/>
+        <Button
+            android:id="@+id/btn_seven"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:onClick="goSeven"
+            android:text="第七章——Android动画深入分析"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_six" />
 
-    <Button
-        android:id="@+id/btn_eleven"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="第十一章——Android的线程和线程池"
-        android:layout_marginTop="20dp"
-        android:onClick="goEleven"
-        app:layout_constraintTop_toBottomOf="@id/btn_seven"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"/>
+        <Button
+            android:id="@+id/btn_eight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:onClick="goEight"
+            android:text="第八章——理解Window和WindowManager"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_seven" />
 
-    <Button
-        android:id="@+id/btn_twelve"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="第十二章——Bitmap的加载和Cache"
-        android:layout_marginTop="20dp"
-        android:onClick="goTwelve"
-        app:layout_constraintTop_toBottomOf="@id/btn_eleven"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"/>
+        <Button
+            android:id="@+id/btn_eleven"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:onClick="goEleven"
+            android:text="第十一章——Android的线程和线程池"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_seven" />
 
-    <Button
-        android:id="@+id/btn_thirteen"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="第十三章——综合技术"
-        android:layout_marginTop="20dp"
-        android:onClick="goThirteen"
-        app:layout_constraintTop_toBottomOf="@id/btn_twelve"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"/>
+        <Button
+            android:id="@+id/btn_twelve"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:onClick="goTwelve"
+            android:text="第十二章——Bitmap的加载和Cache"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_eleven" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <Button
+            android:id="@+id/btn_thirteen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:onClick="goThirteen"
+            android:text="第十三章——综合技术"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_twelve" />
+
+        <Button
+            android:id="@+id/btn_fifteen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:onClick="goFifteen"
+            android:text="第十五章——性能优化"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_thirteen" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

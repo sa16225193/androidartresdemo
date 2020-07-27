@@ -57,4 +57,6 @@ dependencies {
     implementation project(path: ':chapter_11')
     implementation project(path: ':chapter_12')
     implementation project(path: ':chapter_13')
+    implementation project(path: ':chapter_15')
+
 }
